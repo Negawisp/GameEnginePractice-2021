@@ -82,3 +82,7 @@ end
 Entity.GetOrientation = function()
     return Entity.orientation;
 end
+
+Entity.SetOrientation = function(x, y, z, w)
+    Entity.orientation = Quaternion(Radian(w), Vector3(x, y, z));
+end
