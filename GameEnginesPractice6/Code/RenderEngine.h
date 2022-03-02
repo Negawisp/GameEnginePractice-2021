@@ -15,12 +15,14 @@
 #include "RenderNode.h"
 #include "ResourceManager.h"
 
+#include "ImguiEditor/ImguiEditor.h"
+
 class RenderEngine
 {
 	friend class RenderThread;
 
 public:
-	RenderEngine(ResourceManager* pResourceManager);
+	RenderEngine(ResourceManager* pResourceManager, ImguiEditor* pImguiEditor);
 	~RenderEngine();
 	RenderEngine(const RenderEngine&) = delete;
 	RenderEngine& operator=(const RenderEngine&) = delete;
@@ -53,6 +55,8 @@ private:
 
 	RenderThread* m_pRT;
 	ResourceManager* m_pResourceManager;
+	
+	ImguiEditor* m_pImguiEditor;
 
 	std::vector<RenderNode*> m_RenderNodes;
 

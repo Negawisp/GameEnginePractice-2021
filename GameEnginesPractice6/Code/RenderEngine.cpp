@@ -2,7 +2,7 @@
 
 #include "ProjectDefines.h"
 
-RenderEngine::RenderEngine(ResourceManager* pResourceManager) :
+RenderEngine::RenderEngine(ResourceManager* pResourceManager, ImguiEditor* pImguiEditor) :
 	m_pRoot(nullptr),
 	m_pRenderWindow(nullptr),
 	m_pSceneManager(nullptr),
@@ -11,7 +11,8 @@ RenderEngine::RenderEngine(ResourceManager* pResourceManager) :
 	m_pWorkspace(nullptr),
 	m_pRT(nullptr),
 	m_bQuit(false),
-	m_pResourceManager(pResourceManager)
+	m_pResourceManager(pResourceManager),
+	m_pImguiEditor(pImguiEditor)
 {
 	m_pRT = new RenderThread(this);
 
@@ -49,6 +50,8 @@ bool RenderEngine::SetOgreConfig()
 
 void RenderEngine::Update()
 {
+	m_pImguiEditor->Update(m_RenderNodes);
+
 	Ogre::WindowEventUtilities::messagePump();
 
 	for (RenderNode* pRenderNode : m_RenderNodes)
@@ -97,6 +100,9 @@ void RenderEngine::RT_Init()
 
 	// Scene manager
 	m_pSceneManager = m_pRoot->createSceneManager(Ogre::SceneType::ST_GENERIC, 1);
+
+	// Imgui
+	m_pImguiEditor->InitImgui();
 }
 
 void RenderEngine::RT_SetupDefaultCamera()

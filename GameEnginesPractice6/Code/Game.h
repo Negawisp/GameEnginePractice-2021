@@ -9,6 +9,7 @@
 #include "GameTimer.h"
 #include "flecs.h"
 #include "LoadingSystem/LoadingSystem.h"
+#include "ImguiEditor/ImguiEditor.h"
 
 class Game
 {
@@ -32,5 +33,6 @@ private:
 	ScriptSystem* m_pScriptSystem;
 	EntityManager* m_pEntityManager;
 	LoadingSystem* m_pLoadingSystem;
+	ImguiEditor* m_pImguiEditor;
 };
 

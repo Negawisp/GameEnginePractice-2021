@@ -9,9 +9,10 @@ Game::Game()
 {
 	m_pEcs = new flecs::world();
 	m_pFileSystem = new FileSystem();
+	m_pImguiEditor = new ImguiEditor();
 	m_pResourceManager = new ResourceManager(m_pFileSystem->GetMediaRoot());
 	m_pInputHandler = new InputHandler(m_pFileSystem->GetMediaRoot());
-	m_pRenderEngine = new RenderEngine(m_pResourceManager);
+	m_pRenderEngine = new RenderEngine(m_pResourceManager, m_pImguiEditor);
 	m_pScriptSystem = new ScriptSystem(m_pInputHandler, m_pFileSystem->GetScriptsRoot());
 	m_pEntityManager = new EntityManager(m_pRenderEngine, m_pScriptSystem, m_pEcs);
 	m_pLoadingSystem = new LoadingSystem(m_pEntityManager, m_pFileSystem->GetSavesRoot());
@@ -36,6 +37,7 @@ Game::~Game()
 {
 	SAFE_DELETE(m_pEcs);
 	SAFE_DELETE(m_pFileSystem);
+	SAFE_DELETE(m_pImguiEditor);
 	SAFE_DELETE(m_pResourceManager);
 	SAFE_DELETE(m_pInputHandler);
 	SAFE_DELETE(m_pRenderEngine);

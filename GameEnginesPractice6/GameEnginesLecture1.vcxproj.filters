@@ -87,6 +87,12 @@
     <ClInclude Include="Code\LoadingSystem\LoadingSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\ImguiEditor\ImguiEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Game.cpp">
@@ -147,6 +153,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Code\ECS\ecsStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\ImguiEditor\ImguiEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

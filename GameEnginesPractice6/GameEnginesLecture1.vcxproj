@@ -30,26 +30,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\SDKs\Ogre\include\OGRE;$(SolutionDir)\..\SDKs\Ogre\include\OGRE\Hlms\Common;$(SolutionDir)\..\SDKs\LuaBridge3\include;$(SolutionDir)\..\SDKs\lua\include;$(SolutionDir)\..\SDKs\crc32;$(SolutionDir)\..\SDKs\flecs;$(SolutionDir)\..\SDKs\tinyxml</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\SDKs\Ogre\include\OGRE;$(SolutionDir)\..\SDKs\Ogre\include\OGRE\Hlms\Common;$(SolutionDir)\..\SDKs\LuaBridge3\include;$(SolutionDir)\..\SDKs\lua\include;$(SolutionDir)\..\SDKs\crc32;$(SolutionDir)\..\SDKs\flecs;$(SolutionDir)\..\SDKs\imgui;$(SolutionDir)\..\SDKs\imgui\backends;$(SolutionDir)\..\SDKs\tinyxml</IncludePath>
     <OutDir>$(SolutionDir)\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -175,6 +175,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClInclude Include="Code\framework.h" />
     <ClInclude Include="Code\Game.h" />
     <ClInclude Include="Code\GameTimer.h" />
+    <ClInclude Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.h" />
     <ClInclude Include="Code\Input\Input.h" />
     <ClInclude Include="Code\Input\InputHandler.h" />
     <ClInclude Include="Code\LoadingSystem\LoadingSystem.h" />
@@ -187,6 +188,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClInclude Include="Code\ScriptSystem\ScriptNode.h" />
     <ClInclude Include="Code\ScriptSystem\ScriptSystem.h" />
     <ClInclude Include="Code\targetver.h" />
+    <ClInclude Include="Code\ImguiEditor\ImguiEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\ECS\ecsControl.cpp" />
@@ -200,6 +202,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClCompile Include="Code\FileSystem\IOWrapper.cpp" />
     <ClCompile Include="Code\Game.cpp" />
     <ClCompile Include="Code\GameTimer.cpp" />
+    <ClCompile Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp" />
     <ClCompile Include="Code\Input\InputHandler.cpp" />
     <ClCompile Include="Code\LoadingSystem\LoadingSystem.cpp" />
     <ClCompile Include="Code\Main.cpp" />
@@ -209,6 +212,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClCompile Include="Code\ResourceManager.cpp" />
     <ClCompile Include="Code\ScriptSystem\ScriptNode.cpp" />
     <ClCompile Include="Code\ScriptSystem\ScriptSystem.cpp" />
+    <ClCompile Include="Code\ImguiEditor\ImguiEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDKs\flecs\flecs.vcxproj">
