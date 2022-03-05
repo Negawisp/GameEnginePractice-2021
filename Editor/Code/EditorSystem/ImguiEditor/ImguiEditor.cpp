@@ -86,7 +86,7 @@ void ImguiEditor::AddEntityTree() {
 				Ogre::Vector3 pos = node->GetPosition();
 				Ogre::Quaternion orient = node->GetOrientation();
 
-				ImGui::DragFloat3(("Entity " + std::to_string(node->GetId()) + " pos").c_str(), &pos.x, .1f);
+				ImGui::DragFloat3(("Entity " + std::to_string(node->GetId()) + " position").c_str(), &pos.x, .1f);
 				node->SetPosition(pos);
 			}
 
@@ -110,40 +110,3 @@ void ImguiEditor::AddEntityTree() {
 		}
 	}
 }
-
-/*
-void ImguiEditor::AddEntityTree() {
-	for (Entity& entity : m_pEditorSystem->m_entities) {
-		if (ImGui::TreeNode((entity.entityName + std::to_string(entity.idx)).c_str())) {
-			ImGui::TreePop();
-			{
-				Ogre::Vector3 pos = entity.pScriptNode->GetPosition();
-				Ogre::Quaternion orient = entity.pScriptNode->GetOrientation();
-
-				ImGui::DragFloat3(("Entity " + std::to_string(entity.idx) + " pos").c_str(), &pos.x, .1f);
-				entity.pScriptNode->SetPosition(pos);
-			}
-
-			{
-				static Ogre::Vector3 prevRotation(0., 0., 0.);
-				static Ogre::Vector3 vRotation(0., 0., 0.);
-
-				Ogre::Vector3 vRotationDelta;
-				Ogre::Quaternion qRotationDelta;
-				Ogre::Quaternion qRotation = entity.pScriptNode->GetOrientation();
-				float phi = 0;
-
-				ImGui::DragFloat3(("Entity " + std::to_string(entity.idx) + " rotation").c_str(), &vRotation.x, 0.01f);
-
-				vRotationDelta = vRotation - prevRotation;
-				//entity.pScriptNode->Rotate(rotationDelta.normalisedCopy(), (Ogre::Radian)rotationDelta.normalise());
-
-				qRotationDelta = Ogre::Quaternion((Ogre::Radian)vRotationDelta.normalise(), vRotationDelta.normalisedCopy());
-				entity.pScriptNode->SetRotation(qRotationDelta * qRotation);
-
-				prevRotation = vRotation;
-			}
-		}
-	}
-}
-*/
