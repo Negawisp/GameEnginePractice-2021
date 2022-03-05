@@ -1,6 +1,7 @@
 #include "ecsMesh.h"
 #include "ecsSystems.h"
 #include "ecsScript.h"
+#include "ecsEditor.h"
 #include "ecsWorldPlacement.h"
 
 void register_ecs_script_systems(flecs::world* ecs)

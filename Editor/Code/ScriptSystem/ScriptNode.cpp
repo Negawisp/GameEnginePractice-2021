@@ -170,7 +170,7 @@ void ScriptNode::AddDependencies(lua_State* L)
 
 	luabridge::getGlobalNamespace(L)
 		.beginClass<InputHandler>("InputHandler")
-		.addConstructor<void(*) (const std::string&, RenderEngine*)>()
+		.addConstructor<void(*) (const std::string&)>()
 		.addFunction("isCommandActive", &(InputHandler::IsCommandActive))
 		.endClass()
 		.beginClass<Ogre::Vector3>("Vector3")

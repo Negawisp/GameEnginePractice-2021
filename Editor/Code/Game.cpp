@@ -10,20 +10,22 @@ Game::Game()
 {
 	m_pEcs = new flecs::world();
 	m_pFileSystem = new FileSystem();
-	m_pEditorEngine = new EditorSystem();
+	m_pEditorSystem = new EditorSystem();
 	m_pResourceManager = new ResourceManager(m_pFileSystem->GetMediaRoot());
-	m_pRenderEngine = new RenderEngine(m_pResourceManager, m_pEditorEngine);
-	m_pInputHandler = new InputHandler(m_pFileSystem->GetMediaRoot(), m_pRenderEngine);
+	m_pInputHandler = new InputHandler(m_pFileSystem->GetMediaRoot());
+	m_pRenderEngine = new RenderEngine(m_pResourceManager, m_pEditorSystem, m_pInputHandler);
 	m_pScriptSystem = new ScriptSystem(m_pInputHandler, m_pFileSystem->GetScriptsRoot());
-	m_pEntityManager = new EntityManager(m_pRenderEngine, m_pEditorEngine, m_pScriptSystem, m_pEcs);
+	m_pEntityManager = new EntityManager(m_pRenderEngine, m_pEditorSystem, m_pScriptSystem, m_pEcs);
 	m_pLoadingSystem = new LoadingSystem(m_pEntityManager, m_pFileSystem, m_pFileSystem->GetSavesRoot());
 
 	m_Timer.Start();
-
+	
 	m_pEcs->entity("inputHandler")
 		.set(InputHandlerPtr{ m_pInputHandler });
 	m_pEcs->entity("scriptSystem")
 		.set(ScriptSystemPtr{ m_pScriptSystem });
+	m_pEcs->entity("editorSystem")
+		.set(EditorSystemPtr{ m_pEditorSystem });
 
 	m_pLoadingSystem->LoadFromXML("initialScene.xml");
 
@@ -39,7 +41,7 @@ Game::~Game()
 {
 	SAFE_DELETE(m_pEcs);
 	SAFE_DELETE(m_pFileSystem);
-	SAFE_DELETE(m_pEditorEngine);
+	SAFE_DELETE(m_pEditorSystem);
 	SAFE_DELETE(m_pResourceManager);
 	SAFE_DELETE(m_pInputHandler);
 	SAFE_DELETE(m_pRenderEngine);
@@ -74,9 +76,9 @@ bool Game::Update()
 {
 	m_pEcs->progress();
 
-	if (m_pEditorEngine->IsSignalSave()) {
+	if (m_pEditorSystem->IsSignalSave()) {
 		m_pLoadingSystem->SaveToXML("initialScene.xml");
-		m_pEditorEngine->SignalSaved();
+		m_pEditorSystem->SignalSaved();
 	}
 
 	return true;

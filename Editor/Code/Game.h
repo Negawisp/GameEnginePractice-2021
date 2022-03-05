@@ -33,6 +33,6 @@ private:
 	ScriptSystem* m_pScriptSystem;
 	EntityManager* m_pEntityManager;
 	LoadingSystem* m_pLoadingSystem;
-	EditorSystem* m_pEditorEngine;
+	EditorSystem* m_pEditorSystem;
 };
 

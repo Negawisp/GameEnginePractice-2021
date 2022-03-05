@@ -2,6 +2,8 @@
 #include "flecs.h"
 #include "../EditorSystem/EditorNode.h"
 
+struct Hovered {};
+
 struct Selected {};
 
 struct EditorNodeComponent

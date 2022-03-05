@@ -2,7 +2,10 @@
 
 #include "ProjectDefines.h"
 
-RenderEngine::RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEditorEngine) :
+#include "EditorSystem/EditorSystem.h"
+#include "Input/InputHandler.h"
+
+RenderEngine::RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEditorSystem, InputHandler* pInputHandler) :
 	m_pRoot(nullptr),
 	m_pRenderWindow(nullptr),
 	m_pSceneManager(nullptr),
@@ -12,7 +15,8 @@ RenderEngine::RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEdi
 	m_pRT(nullptr),
 	m_bQuit(false),
 	m_pResourceManager(pResourceManager),
-	m_pEditorEngine(pEditorEngine)
+	m_pEditorSystem(pEditorSystem),
+	m_pInputHandler(pInputHandler)
 {
 	m_pRT = new RenderThread(this);
 
@@ -50,7 +54,7 @@ bool RenderEngine::SetOgreConfig()
 
 void RenderEngine::Update()
 {
-	m_pEditorEngine->GetImguiEditor()->Update(m_RenderNodes, m_pCamera);
+	m_pEditorSystem->GetImguiEditor()->Update(m_RenderNodes, m_pCamera);
 
 	Ogre::WindowEventUtilities::messagePump();
 
@@ -95,8 +99,11 @@ void RenderEngine::RT_Init()
 	// Scene manager
 	m_pSceneManager = m_pRoot->createSceneManager(Ogre::SceneType::ST_GENERIC, 1);
 
-	// Imgui
-	m_pEditorEngine->Init(GetWindowHanlde());
+	// Giving window handle
+	HWND windowHandle = GetWindowHanlde();
+	m_pEditorSystem->Init(windowHandle);
+	m_pInputHandler->SetWindowHandle(windowHandle);
+
 }
 
 void RenderEngine::RT_SetupDefaultCamera()

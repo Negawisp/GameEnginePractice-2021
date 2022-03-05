@@ -15,14 +15,15 @@
 #include "RenderNode.h"
 #include "ResourceManager.h"
 
-#include "EditorSystem/EditorSystem.h"
+class EditorSystem;
+class InputHandler;
 
 class RenderEngine
 {
 	friend class RenderThread;
 
 public:
-	RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEditorEngine);
+	RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEditorEngine, InputHandler* pInputHandler);
 	~RenderEngine();
 	RenderEngine(const RenderEngine&) = delete;
 	RenderEngine& operator=(const RenderEngine&) = delete;
@@ -58,7 +59,8 @@ private:
 	RenderThread* m_pRT;
 	ResourceManager* m_pResourceManager;
 	
-	EditorSystem* m_pEditorEngine;
+	EditorSystem* m_pEditorSystem;
+	InputHandler* m_pInputHandler;
 
 	std::vector<RenderNode*> m_RenderNodes;
 

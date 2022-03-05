@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <windows.h>
 
-InputHandler::InputHandler(const std::string& strResourceRoot, RenderEngine* renderEngine)
+InputHandler::InputHandler(const std::string& strResourceRoot)
 {
 	m_strMapFilePath = strResourceRoot + "actionmap.ini";
 	std::replace(m_strMapFilePath.begin(), m_strMapFilePath.end(), '\\', '/');
@@ -115,10 +115,17 @@ bool InputHandler::IsCommandActive(EInputCommand inputCommand) const
 }
 
 
-POINT InputHandler::GetCursorPosition() {
-	POINT point;
-	GetCursorPos(&point);
-	ScreenToClient(m_pRenderEngine->GetWindowHanlde(), &point);
+void InputHandler::SetWindowHandle(HWND windowHandle)
+{
+	m_pWindowHandle = windowHandle;
+}
 
-	return point;
+bool InputHandler::GetCursorPosition(POINT* out_point) {
+	if (m_pWindowHandle == nullptr) {
+		return false;
+	}
+
+	GetCursorPos(out_point);
+	ScreenToClient(m_pWindowHandle, out_point);
+	return true;
 }
