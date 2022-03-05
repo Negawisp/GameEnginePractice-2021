@@ -15,14 +15,14 @@
 #include "RenderNode.h"
 #include "ResourceManager.h"
 
-#include "ImguiEditor/ImguiEditor.h"
+#include "EditorSystem/EditorSystem.h"
 
 class RenderEngine
 {
 	friend class RenderThread;
 
 public:
-	RenderEngine(ResourceManager* pResourceManager, ImguiEditor* pImguiEditor);
+	RenderEngine(ResourceManager* pResourceManager, EditorSystem* pEditorEngine);
 	~RenderEngine();
 	RenderEngine(const RenderEngine&) = delete;
 	RenderEngine& operator=(const RenderEngine&) = delete;
@@ -33,6 +33,8 @@ public:
 	void SetQuit(bool bQuit) { m_bQuit = bQuit; }
 
 	RenderThread* GetRT() const { return m_pRT; }
+
+	HWND GetWindowHanlde();
 
 private:
 	bool SetOgreConfig();
@@ -56,7 +58,7 @@ private:
 	RenderThread* m_pRT;
 	ResourceManager* m_pResourceManager;
 	
-	ImguiEditor* m_pImguiEditor;
+	EditorSystem* m_pEditorEngine;
 
 	std::vector<RenderNode*> m_RenderNodes;
 

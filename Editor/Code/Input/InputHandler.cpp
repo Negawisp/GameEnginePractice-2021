@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <windows.h>
 
-InputHandler::InputHandler(const std::string& strResourceRoot)
+InputHandler::InputHandler(const std::string& strResourceRoot, RenderEngine* renderEngine)
 {
 	m_strMapFilePath = strResourceRoot + "actionmap.ini";
 	std::replace(m_strMapFilePath.begin(), m_strMapFilePath.end(), '\\', '/');
@@ -97,6 +97,7 @@ void InputHandler::Remap()
 // We used int as return type just for demonstration. It should be done another way
 void InputHandler::Update()
 {
+	//m_cursorPosition = GetCursorPosition();
 	for (auto& it : m_inputEventMap)
 	{
 		m_InputState.set(it.second, IsKeyDown(it.first));
@@ -111,4 +112,13 @@ const std::bitset<eIC_Max>& InputHandler::GetInputState() const
 bool InputHandler::IsCommandActive(EInputCommand inputCommand) const
 {
 	return m_InputState.test(inputCommand);
+}
+
+
+POINT InputHandler::GetCursorPosition() {
+	POINT point;
+	GetCursorPos(&point);
+	ScreenToClient(m_pRenderEngine->GetWindowHanlde(), &point);
+
+	return point;
 }

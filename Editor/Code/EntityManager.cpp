@@ -1,11 +1,11 @@
 #include "EntityManager.h"
 
-EntityManager::EntityManager(RenderEngine* pRenderEngine, ScriptSystem* pScriptSystem, flecs::world* ecs) :
+EntityManager::EntityManager(RenderEngine* pRenderEngine, EditorSystem* pEditorSystem, ScriptSystem* pScriptSystem, flecs::world* ecs) :
 	m_pRenderEngine(pRenderEngine),
+	m_pEditorSystem(pEditorSystem),
 	m_pEcs(ecs),
 	m_pScriptSystem(pScriptSystem)
 {
-
 }
 
 EntityManager::~EntityManager()
@@ -44,27 +44,29 @@ void EntityManager::CreateEntity(const EntityInfo &fromSave)
 	flecs::entity newEntity = m_pEcs->entity();
 	uint32_t nIndex = GetNewIndex();
 
+	EditorNode* pEditorNode = m_pEditorSystem->CreateNode(fromSave, nIndex);
+
 	ScriptNode* pScriptNode = m_pScriptSystem->CreateScriptNode(fromSave.scriptName, newEntity);
 	pScriptNode->SetPosition(fromSave.position);
-	pScriptNode->SetRotation(fromSave.rotation);
-	
+	pScriptNode->SetOrientation(fromSave.rotation);
+
 	Ogre::String strEnityName = fromSave.entityName;
 	Ogre::String strMeshName = fromSave.meshName;
 	RenderNode* pRenderNode = new RenderNode(nIndex, strMeshName);
 
 	newEntity.set(EntityIndex{ nIndex })
 		.set(RenderNodeComponent{ pRenderNode })
+		.set(EditorNodeComponent{ pEditorNode })
 		.set(ScriptNodeComponent{ pScriptNode });
 
 	m_pRenderEngine->GetRT()->RC_CreateSceneNode(pRenderNode);
 
 	Entity entity;
+	entity.idx = nIndex;
 	entity.entityName = strEnityName;
+	entity.pEditorNode = pEditorNode;
 	entity.pRenderNode = pRenderNode;
 	entity.pScriptNode = pScriptNode;
-	//entity.position = fromSave.position;
-	//entity.rotation = fromSave.rotation;
-	entity.idx = nIndex;
 
 	m_entityQueue[nIndex] = entity;
 }

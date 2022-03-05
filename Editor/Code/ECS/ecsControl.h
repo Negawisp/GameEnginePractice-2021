@@ -4,8 +4,6 @@
 
 struct Controllable {};
 
-struct Selected {};
-
 struct CameraPosition : public Ogre::Vector3
 {
 	using Ogre::Vector3::Vector3;

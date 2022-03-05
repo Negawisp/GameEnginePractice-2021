@@ -5,24 +5,22 @@
 #include "ImguiWrapper/ImguiWrapper.h"
 
 class RenderNode;
+class EditorSystem;
 
 class ImguiEditor
 {
 public:
-	void InitImgui();
+	ImguiEditor(EditorSystem* pEditorSystem);
+
+	void Init();
 	void Update(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera);
 
-	bool IsSignalSave();
-	void SignalSaved();
-
 private:
-	bool m_signalSave;
-
-	void AddEditorMenu(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera);
-	void AddCameraSettings(Ogre::Camera* camera);
-	void AddEntityTree(std::vector<RenderNode*>& pRenderNodes);
+	EditorSystem* m_pEditorSystem;
 	
-	void SignalSave();
-	void WaitMainThreadSaved();
+	void AddEditorMenu(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera);
+	void AddCursorPosition();
+	void AddCameraSettings(Ogre::Camera* camera);
+	void AddEntityTree();
 };
 

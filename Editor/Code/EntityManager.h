@@ -1,5 +1,6 @@
 #pragma once
 
+#include "EditorSystem/EditorSystem.h"
 #include "ScriptSystem/ScriptSystem.h"
 #include "LoadingSystem/LoadingSystem.h"
 #include "string.h"
@@ -16,6 +17,7 @@ struct EntityInfo
 struct Entity
 {
 	std::string entityName;
+	EditorNode* pEditorNode;
 	RenderNode* pRenderNode;
 	ScriptNode* pScriptNode;
 	Ogre::Vector3 position;
@@ -27,7 +29,7 @@ struct Entity
 class EntityManager
 {
 public:
-	EntityManager(RenderEngine* pRenderEngine, ScriptSystem* pScriptSystem, flecs::world* ecs);
+	EntityManager(RenderEngine* pRenderEngine, EditorSystem* m_pEditorEngine, ScriptSystem* pScriptSystem, flecs::world* ecs);
 	~EntityManager();
 	EntityManager(const EntityManager&) = delete;
 	EntityManager& operator=(const EntityManager&) = delete;
@@ -38,8 +40,9 @@ public:
 	std::unordered_map<uint32_t, Entity> GetEntityQueue() const;
 
 private:
-	ScriptSystem* m_pScriptSystem;
 	RenderEngine* m_pRenderEngine;
+	ScriptSystem* m_pScriptSystem;
+	EditorSystem* m_pEditorSystem;
 	LoadingSystem* m_pLoadingSystem;
 	flecs::world* m_pEcs;
 

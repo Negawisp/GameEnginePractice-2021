@@ -175,7 +175,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClInclude Include="Code\framework.h" />
     <ClInclude Include="Code\Game.h" />
     <ClInclude Include="Code\GameTimer.h" />
-    <ClInclude Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.h" />
+    <ClInclude Include="Code\EditorSystem\ImguiEditor\ImguiWrapper\ImguiWrapper.h" />
     <ClInclude Include="Code\Input\Input.h" />
     <ClInclude Include="Code\Input\InputHandler.h" />
     <ClInclude Include="Code\LoadingSystem\LoadingSystem.h" />
@@ -188,8 +188,11 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClInclude Include="Code\ScriptSystem\ScriptNode.h" />
     <ClInclude Include="Code\ScriptSystem\ScriptSystem.h" />
     <ClInclude Include="Code\targetver.h" />
-    <ClInclude Include="Code\ImguiEditor\ImguiEditor.h" />
+    <ClInclude Include="Code\EditorSystem\ImguiEditor\ImguiEditor.h" />
     <ClInclude Include="Code\ECS\ecsWorldPlacement.h" />
+    <ClInclude Include="Code\EditorSystem\EditorSystem.h" />
+    <ClInclude Include="Code\ECS\ecsEditor.h" />
+    <ClInclude Include="Code\EditorSystem\EditorNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SDKs\imgui\backends\imgui_impl_dx11.cpp" />
@@ -209,7 +212,7 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClCompile Include="Code\FileSystem\IOWrapper.cpp" />
     <ClCompile Include="Code\Game.cpp" />
     <ClCompile Include="Code\GameTimer.cpp" />
-    <ClCompile Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp" />
+    <ClCompile Include="Code\EditorSystem\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp" />
     <ClCompile Include="Code\Input\InputHandler.cpp" />
     <ClCompile Include="Code\LoadingSystem\LoadingSystem.cpp" />
     <ClCompile Include="Code\Main.cpp" />
@@ -219,8 +222,11 @@ xcopy /y $(SolutionDir)\..\SDKs\lua\bin $(TargetDir)</Command>
     <ClCompile Include="Code\ResourceManager.cpp" />
     <ClCompile Include="Code\ScriptSystem\ScriptNode.cpp" />
     <ClCompile Include="Code\ScriptSystem\ScriptSystem.cpp" />
-    <ClCompile Include="Code\ImguiEditor\ImguiEditor.cpp" />
+    <ClCompile Include="Code\EditorSystem\ImguiEditor\ImguiEditor.cpp" />
     <ClCompile Include="Code\ECS\ecsWorldPlacement.cpp" />
+    <ClCompile Include="Code\EditorSystem\EditorSystem.cpp" />
+    <ClCompile Include="Code\ECS\ecsEditor.cpp" />
+    <ClCompile Include="Code\EditorSystem\EditorNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDKs\flecs\flecs.vcxproj">

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "ECS/ecsEditor.h"
 #include "ECS/ecsMesh.h"
 #include "ECS/ecsSystems.h"
 #include "ECS/ecsWorldPlacement.h"
@@ -9,12 +10,12 @@ Game::Game()
 {
 	m_pEcs = new flecs::world();
 	m_pFileSystem = new FileSystem();
-	m_pImguiEditor = new ImguiEditor();
+	m_pEditorEngine = new EditorSystem();
 	m_pResourceManager = new ResourceManager(m_pFileSystem->GetMediaRoot());
-	m_pInputHandler = new InputHandler(m_pFileSystem->GetMediaRoot());
-	m_pRenderEngine = new RenderEngine(m_pResourceManager, m_pImguiEditor);
+	m_pRenderEngine = new RenderEngine(m_pResourceManager, m_pEditorEngine);
+	m_pInputHandler = new InputHandler(m_pFileSystem->GetMediaRoot(), m_pRenderEngine);
 	m_pScriptSystem = new ScriptSystem(m_pInputHandler, m_pFileSystem->GetScriptsRoot());
-	m_pEntityManager = new EntityManager(m_pRenderEngine, m_pScriptSystem, m_pEcs);
+	m_pEntityManager = new EntityManager(m_pRenderEngine, m_pEditorEngine, m_pScriptSystem, m_pEcs);
 	m_pLoadingSystem = new LoadingSystem(m_pEntityManager, m_pFileSystem, m_pFileSystem->GetSavesRoot());
 
 	m_Timer.Start();
@@ -29,6 +30,7 @@ Game::Game()
 	register_ecs_control_systems(m_pEcs);
 	register_ecs_placement_systems(m_pEcs);
 	register_ecs_script_systems(m_pEcs);
+	register_ecs_editor_systems(m_pEcs);
 	register_ecs_static_systems(m_pEcs);
 	register_ecs_mesh_systems(m_pEcs);
 }
@@ -37,7 +39,7 @@ Game::~Game()
 {
 	SAFE_DELETE(m_pEcs);
 	SAFE_DELETE(m_pFileSystem);
-	SAFE_DELETE(m_pImguiEditor);
+	SAFE_DELETE(m_pEditorEngine);
 	SAFE_DELETE(m_pResourceManager);
 	SAFE_DELETE(m_pInputHandler);
 	SAFE_DELETE(m_pRenderEngine);
@@ -70,9 +72,11 @@ void Game::Run()
 
 bool Game::Update()
 {
-	if (m_pImguiEditor->IsSignalSave()) {
+	m_pEcs->progress();
+
+	if (m_pEditorEngine->IsSignalSave()) {
 		m_pLoadingSystem->SaveToXML("initialScene.xml");
-		m_pImguiEditor->SignalSaved();
+		m_pEditorEngine->SignalSaved();
 	}
 
 	return true;

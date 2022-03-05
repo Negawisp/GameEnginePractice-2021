@@ -49,10 +49,11 @@ public:
 
 	Ogre::Vector3 GetPosition() const;
 	void SetPosition(Ogre::Vector3 position);
-	void SetRotation(Ogre::Quaternion rotation);
+	
+	Ogre::Quaternion GetOrientation() const;
+	void SetOrientation(Ogre::Quaternion orientation);
 
 	Ogre::Vector3 GetCameraPosition() const;
-	Ogre::Quaternion GetOrientation() const;
 	std::string GetMeshName() const;
 	std::string GetScriptName() const;
 	bool GetIsStatic() const;

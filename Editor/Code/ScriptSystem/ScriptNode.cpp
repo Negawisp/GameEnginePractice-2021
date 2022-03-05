@@ -79,12 +79,12 @@ void ScriptNode::SetPosition(Ogre::Vector3 position)
 	object[m_SetPositionFunctionName](position.x, position.y, position.z);
 }
 
-void ScriptNode::SetRotation(Ogre::Quaternion rotation)
+void ScriptNode::SetOrientation(Ogre::Quaternion orientation)
 {
 	luabridge::LuaRef object = luabridge::getGlobal(m_script, m_EntityFieldName);
 	Ogre::Vector3 axis;
 	Ogre::Radian angle;
-	rotation.ToAngleAxis(angle, axis);
+	orientation.ToAngleAxis(angle, axis);
 	object[m_SetOrientationFunctionName](axis.x, axis.y, axis.z, angle.valueRadians());
 }
 
@@ -170,7 +170,7 @@ void ScriptNode::AddDependencies(lua_State* L)
 
 	luabridge::getGlobalNamespace(L)
 		.beginClass<InputHandler>("InputHandler")
-		.addConstructor<void(*) (const std::string&)>()
+		.addConstructor<void(*) (const std::string&, RenderEngine*)>()
 		.addFunction("isCommandActive", &(InputHandler::IsCommandActive))
 		.endClass()
 		.beginClass<Ogre::Vector3>("Vector3")

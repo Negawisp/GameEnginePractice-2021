@@ -84,16 +84,25 @@
     <ClInclude Include="Code\LoadingSystem\LoadingSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.h">
+    <ClInclude Include="Code\EditorSystem\ImguiEditor\ImguiWrapper\ImguiWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\ImguiEditor\ImguiEditor.h">
+    <ClInclude Include="Code\EditorSystem\ImguiEditor\ImguiEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\SDKs\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Code\ECS\ecsWorldPlacement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\EditorSystem\EditorSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\ECS\ecsEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\EditorSystem\EditorNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,10 +164,10 @@
     <ClCompile Include="Code\ECS\ecsStatic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp">
+    <ClCompile Include="Code\EditorSystem\ImguiEditor\ImguiWrapper\ImguiWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\ImguiEditor\ImguiEditor.cpp">
+    <ClCompile Include="Code\EditorSystem\ImguiEditor\ImguiEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\SDKs\imgui\backends\imgui_impl_dx11.cpp">
@@ -183,6 +192,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Code\ECS\ecsWorldPlacement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\EditorSystem\EditorSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\ECS\ecsEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\EditorSystem\EditorNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
