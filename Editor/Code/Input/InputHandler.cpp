@@ -120,12 +120,21 @@ void InputHandler::SetWindowHandle(HWND windowHandle)
 	m_pWindowHandle = windowHandle;
 }
 
-bool InputHandler::GetCursorPosition(POINT* out_point) {
+bool InputHandler::GetCursorPosition(Ogre::Vector2* out_point)
+{
 	if (m_pWindowHandle == nullptr) {
 		return false;
 	}
 
-	GetCursorPos(out_point);
-	ScreenToClient(m_pWindowHandle, out_point);
+	RECT windowRect;
+	POINT point;
+
+	GetCursorPos(&point);
+	GetWindowRect(m_pWindowHandle, &windowRect);
+	ScreenToClient(m_pWindowHandle, &point);
+
+	out_point->x = Ogre::Real(point.x) / (Ogre::Real(windowRect.right - windowRect.left));
+	out_point->y = Ogre::Real(point.y) / (Ogre::Real(windowRect.bottom - windowRect.top));
+
 	return true;
 }

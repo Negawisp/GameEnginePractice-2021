@@ -4,7 +4,8 @@
 EditorSystem::EditorSystem()
 {
 	b_signalSave = false;
-	i_mainWindowHandle = nullptr;
+	m_nMainWindowHandle = nullptr;
+	m_pInspectorCamera = nullptr;
 	m_pImguiEditor = new ImguiEditor(this);
 }
 
@@ -18,11 +19,11 @@ EditorSystem::~EditorSystem()
 
 void EditorSystem::Init(HWND mainWindowHandle)
 {
-	i_mainWindowHandle = mainWindowHandle;
+	m_nMainWindowHandle = mainWindowHandle;
 	m_pImguiEditor->Init();
 }
 
-EditorNode* EditorSystem::CreateNode(EntityInfo entityInfo, uint32_t id)
+EditorNode* EditorSystem::CreateNode(EntityInfo entityInfo, uint32_t id, flecs::entity entity)
 {
 	EditorNode* node = new EditorNode();
 	
@@ -34,6 +35,8 @@ EditorNode* EditorSystem::CreateNode(EntityInfo entityInfo, uint32_t id)
 
 	m_pEditorNodes.push_back(node);
 
+	entity.set(SphereHitbox(Ogre::Vector3(0.f, 0.f, 0.f), DEFAULT_HITBOX_SIZE));
+
 	return node;
 }
 
@@ -42,14 +45,37 @@ ImguiEditor* EditorSystem::GetImguiEditor()
 	return m_pImguiEditor;
 }
 
-bool EditorSystem::GetCursorPosition(POINT* point)
+bool EditorSystem::GetCursorPosition(Ogre::Vector2* out_point)
 {
-	if (i_mainWindowHandle == nullptr) {
+	if (m_nMainWindowHandle == nullptr) {
+		return false;
+	}
+	
+	RECT windowRect;
+	POINT point;
+
+	GetCursorPos(&point);
+	GetWindowRect(m_nMainWindowHandle, &windowRect);
+	ScreenToClient(m_nMainWindowHandle, &point);
+
+	out_point->x = Ogre::Real(point.x) / (Ogre::Real(windowRect.right - windowRect.left));
+	out_point->y = Ogre::Real(point.y) / (Ogre::Real(windowRect.bottom - windowRect.top));
+
+	return true;
+}
+
+void EditorSystem::SetInspectorCamera(Ogre::Camera* inspectorCamera)
+{
+	m_pInspectorCamera = inspectorCamera;
+}
+
+bool EditorSystem::GetInspectorCamera(Ogre::Camera** out_pInspectorCamera)
+{
+	if (!m_pInspectorCamera) {
 		return false;
 	}
 
-	GetCursorPos(point);
-	ScreenToClient(i_mainWindowHandle, point);
+	*out_pInspectorCamera = m_pInspectorCamera;
 	return true;
 }
 

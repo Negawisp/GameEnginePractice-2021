@@ -11,4 +11,8 @@ struct EditorNodeComponent
 	class EditorNode* ptr;
 };
 
+struct SphereHitbox : public Ogre::Sphere {
+	using Ogre::Sphere::Sphere;
+};
+
 void register_ecs_editor_systems(flecs::world* ecs);

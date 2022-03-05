@@ -54,7 +54,7 @@ bool RenderEngine::SetOgreConfig()
 
 void RenderEngine::Update()
 {
-	m_pEditorSystem->GetImguiEditor()->Update(m_RenderNodes, m_pCamera);
+	m_pEditorSystem->GetImguiEditor()->Update();
 
 	Ogre::WindowEventUtilities::messagePump();
 
@@ -115,6 +115,8 @@ void RenderEngine::RT_SetupDefaultCamera()
 	m_pCamera->setNearClipDistance(0.2f);
 	m_pCamera->setFarClipDistance(1000.0f);
 	m_pCamera->setAutoAspectRatio(true);
+
+	m_pEditorSystem->SetInspectorCamera(m_pCamera);
 }
 
 void RenderEngine::RT_SetupDefaultCompositor()

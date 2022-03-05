@@ -44,7 +44,7 @@ void EntityManager::CreateEntity(const EntityInfo &fromSave)
 	flecs::entity newEntity = m_pEcs->entity();
 	uint32_t nIndex = GetNewIndex();
 
-	EditorNode* pEditorNode = m_pEditorSystem->CreateNode(fromSave, nIndex);
+	EditorNode* pEditorNode = m_pEditorSystem->CreateNode(fromSave, nIndex, newEntity);
 
 	ScriptNode* pScriptNode = m_pScriptSystem->CreateScriptNode(fromSave.scriptName, newEntity);
 	pScriptNode->SetPosition(fromSave.position);

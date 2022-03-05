@@ -13,14 +13,14 @@ public:
 	ImguiEditor(EditorSystem* pEditorSystem);
 
 	void Init();
-	void Update(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera);
+	void Update();
 
 private:
 	EditorSystem* m_pEditorSystem;
 	
-	void AddEditorMenu(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera);
+	void AddEditorMenu();
 	void AddCursorPosition();
-	void AddCameraSettings(Ogre::Camera* camera);
+	void AddCameraSettings();
 	void AddEntityTree();
 };
 

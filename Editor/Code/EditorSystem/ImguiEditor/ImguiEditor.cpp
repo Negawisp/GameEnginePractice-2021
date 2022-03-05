@@ -13,21 +13,21 @@ void ImguiEditor::Init() {
 	ImguiWrapper::Init();
 }
 
-void ImguiEditor::Update(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* pCamera) {
+void ImguiEditor::Update() {
 	ImguiWrapper::StartFrame();
 
-	AddEditorMenu(pRenderNodes, pCamera);
+	AddEditorMenu();
 
 	ImguiWrapper::Render();
 }
 
-void ImguiEditor::AddEditorMenu(std::vector<RenderNode*>& pRenderNodes, Ogre::Camera* camera) {
+void ImguiEditor::AddEditorMenu() {
 	ImGui::Begin("Editor");
 	
 	AddCursorPosition();
 
 	if (!m_pEditorSystem->IsSignalSave()) {
-		AddCameraSettings(camera);
+		AddCameraSettings();
 		AddEntityTree();
 		if (ImGui::Button("Save")) {
 			m_pEditorSystem->SignalSave();
@@ -41,14 +41,20 @@ void ImguiEditor::AddEditorMenu(std::vector<RenderNode*>& pRenderNodes, Ogre::Ca
 }
 
 void ImguiEditor::AddCursorPosition() {
-	POINT point;
+	Ogre::Vector2 point;
 	if (!m_pEditorSystem->GetCursorPosition(&point)) {
 		return;
 	}
 	ImGui::Text(("Mouse pos x=" + std::to_string(point.x) + " y=" + std::to_string(point.y)).c_str());
 }
 
-void ImguiEditor::AddCameraSettings(Ogre::Camera* camera) {
+void ImguiEditor::AddCameraSettings() {
+	Ogre::Camera* camera = nullptr;
+	if (!m_pEditorSystem->GetInspectorCamera(&camera)) {
+		ImGui::Text("Inspector camera has not yet been set up");
+		return;
+	}
+
 	// Position
 	{
 		Ogre::Vector3 cameraPos = camera->getPosition();

@@ -20,7 +20,7 @@ public:
 	bool IsCommandActive(EInputCommand inputCommand) const;
 	
 	void SetWindowHandle(HWND windowHandle);
-	bool GetCursorPosition(POINT* out_point);
+	bool GetCursorPosition(Ogre::Vector2* out_point);
 
 private:
 	void LoadConfiguration();
